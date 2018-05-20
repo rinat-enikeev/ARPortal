@@ -39,6 +39,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let touchLocation = touch.location(in: sceneView)
+            let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+            if let hitResult = results.first {
+                if let boxScene = SCNScene(named: "art.scnassets/box.scn") {
+                    if let boxNode = boxScene.rootNode.childNode(withName: "box", recursively: true) {
+                        boxNode.position = SCNVector3(x: hitResult.worldTransform.columns.3.x, y: hitResult.worldTransform.columns.3.y + 0.15, z: hitResult.worldTransform.columns.3.z)
+                        sceneView.scene.rootNode.addChildNode(boxNode)
+                    }
+                }
+            }
+        }
+    }
+    
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         if anchor is ARPlaneAnchor {
             let planeAncor = anchor as! ARPlaneAnchor
