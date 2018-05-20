@@ -44,9 +44,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let touchLocation = touch.location(in: sceneView)
             let results = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
             if let hitResult = results.first {
-                if let boxScene = SCNScene(named: "art.scnassets/box.scn") {
-                    if let boxNode = boxScene.rootNode.childNode(withName: "box", recursively: true) {
-                        boxNode.position = SCNVector3(x: hitResult.worldTransform.columns.3.x, y: hitResult.worldTransform.columns.3.y + 0.15, z: hitResult.worldTransform.columns.3.z)
+                if let boxScene = SCNScene(named: "art.scnassets/portal.scn") {
+                    if let boxNode = boxScene.rootNode.childNode(withName: "portal", recursively: true) {
+                        boxNode.position = SCNVector3(x: hitResult.worldTransform.columns.3.x, y: hitResult.worldTransform.columns.3.y + 0.05, z: hitResult.worldTransform.columns.3.z)
                         sceneView.scene.rootNode.addChildNode(boxNode)
                     }
                 }
